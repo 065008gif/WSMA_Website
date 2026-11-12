@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Passport Stories: global styles.
+   Colours and fonts are defined in tailwind.config.ts. This file adds
+   the few things Tailwind classes cannot express neatly: the paper
+   texture, the retro sun, ticket edges and the starfield.
+------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-night font-sans text-cream antialiased;
+  }
+  /* One visible, consistent focus ring for keyboard users. */
+  :focus-visible {
+    outline: 3px solid #4cc9f0;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: #ffb703;
+    color: #1b1f5e;
+  }
+}
+
+@layer components {
+  .h-display {
+    @apply font-display font-normal leading-[0.98] tracking-tight;
+  }
+  .kicker {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.22em];
+  }
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-base font-semibold transition-transform duration-150;
+  }
+  /* Chunky "pressable" primary button. */
+  .btn-sun {
+    @apply bg-sun text-ink;
+    box-shadow: 0 5px 0 #fb8500;
+  }
+  .btn-sun:hover {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #fb8500;
+  }
+  .btn-sun:active {
+    transform: translateY(5px);
+    box-shadow: none;
+  }
+  .btn-ink {
+    @apply bg-ink text-cream;
+    box-shadow: 0 5px 0 #0d0f3a;
+  }
+  .btn-ink:hover {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #0d0f3a;
+  }
+  .btn-ghost {
+    @apply border-2 border-cream/40 text-cream hover:bg-cream/10;
+  }
+  .btn-ghost-ink {
+    @apply border-2 border-ink/40 text-ink hover:bg-ink/10;
+  }
+  .chip {
+    @apply inline-flex min-h-[40px] items-center gap-2 rounded-full border-2 border-cream/25 px-4 py-1.5 text-sm font-semibold transition-colors hover:border-sun;
+  }
+  .chip[aria-pressed='true'],
+  .chip[aria-current='true'] {
+    @apply border-sun bg-sun text-ink;
+  }
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+  /* "sample" tag shown next to unverified numbers */
+  .sample-tag {
+    @apply ml-1 inline-block rounded border border-current px-1 align-middle font-mono text-[10px] uppercase leading-4 tracking-wider opacity-70;
+  }
+}
+
+/* Cream paper with a faint grain, used for anything the visitor reads. */
+.paper {
+  background-color: #fff4e0;
+  color: #1b1f5e;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .12 0 0 0 0 .37 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Night sky with scattered stars. */
+.stars {
+  background-color: #0d0f3a;
+  background-image: radial-gradient(1.5px 1.5px at 24px 38px, rgba(255, 244, 224, 0.9), transparent 60%),
+    radial-gradient(1px 1px at 120px 90px, rgba(255, 244, 224, 0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 200px 20px, rgba(76, 201, 240, 0.8), transparent 60%),
+    radial-gradient(1px 1px at 70px 170px, rgba(255, 244, 224, 0.6), transparent 60%),
+    radial-gradient(1px 1px at 260px 140px, rgba(255, 183, 3, 0.7), transparent 60%),
+    radial-gradient(1px 1px at 170px 230px, rgba(255, 244, 224, 0.5), transparent 60%);
+  background-size: 300px 280px;
+}
+
+/* Sunset sky: indigo at the top melting into the badge colours. */
+.sunset-sky {
+  background: linear-gradient(180deg, #0d0f3a 0%, #1b1f5e 28%, #7b2f6b 52%, #f94144 70%, #fb8500 84%, #ffb703 100%);
+}
+
+/* The retro sun with horizontal slits, as on the logo. */
+.retro-sun {
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #ffb703 0%, #fb8500 55%, #f94144 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 52%, transparent 52% 55%, #000 55% 64%, transparent 64% 68%, #000 68% 76%, transparent 76% 81%, #000 81% 88%, transparent 88% 94%, #000 94%);
+  mask-image: linear-gradient(to bottom, #000 0 52%, transparent 52% 55%, #000 55% 64%, transparent 64% 68%, #000 68% 76%, transparent 76% 81%, #000 81% 88%, transparent 88% 94%, #000 94%);
+}
+
+/* Three sunset stripes, used as a divider. */
+.stripes {
+  height: 12px;
+  background: linear-gradient(180deg, #ffb703 0 33.3%, #fb8500 33.3% 66.6%, #f94144 66.6%);
+}
+
+/* Fake barcode for ticket stubs. */
+.barcode {
+  background-image: repeating-linear-gradient(90deg, #1b1f5e 0 2px, transparent 2px 5px, #1b1f5e 5px 6px, transparent 6px 10px, #1b1f5e 10px 13px, transparent 13px 15px);
+}
+
+/* Perforated ticket edge: a dashed line with a notch punched at each end. */
+.perforation {
+  position: relative;
+  border-top: 2px dashed rgba(27, 31, 94, 0.3);
+}
+.perforation::before,
+.perforation::after {
+  content: '';
+  position: absolute;
+  top: -13px;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--notch, #0d0f3a);
+}
+.perforation::before {
+  left: -12px;
+}
+.perforation::after {
+  right: -12px;
+}
+
+/* Ink stamps look pressed into the paper. */
+.stamp-ink {
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+}
+
+/* Departures board rows */
+.board-row {
+  @apply grid items-center gap-3 border-b border-cream/10 px-3 py-2.5 font-mono text-sm transition-colors hover:bg-cream/10;
+  grid-template-columns: 3.2rem 1fr auto;
+}
+
+/* Respect people who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
